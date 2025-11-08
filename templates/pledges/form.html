@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load django_vite widget_tweaks %}
+{% block title %}
+    Make Your Pledge
+{% endblock title %}
+{% block content %}
+    <div class="max-w-xl mx-auto py-12 px-6" id="form-wrapper">
+        <div class="flex flex-col items-center gap-10 p-6">
+            {% include "components/svgs/illustrations/hand-heart.html" %}
+            <div class="text-center text-just-deep-burgundy-900">
+                <h1 class="text-5xl font-bold font-heading mb-4">Make your pledge</h1>
+                <p class="mb-4">
+                    Select the pledge that resonates with you, and if you’d like, add a personal one too — every promise helps shape a brighter future.
+                </p>
+            </div>
+        </div>
+        <form hx-post="/submit/"
+              hx-target="#form-wrapper"
+              hx-swap="outerHTML"
+              class="flex flex-col gap-6">
+            {% csrf_token %}
+            <fieldset class="bg-just-sandstone-100 py-6 px-5 rounded-2xl">
+                {% include "components/forms/field.html" with field=form.first_name %}
+                {% include "components/forms/field.html" with field=form.last_name %}
+                {% include "components/forms/field.html" with field=form.personal_pledge %}
+                <div class="flex items-start gap-x-2">
+                    {% include "components/forms/checkbox.html" with field=form.allow_display %}
+                    <label for="{{ form.allow_display.id_for_label }}"
+                           class="text-just-deep-burgundy-900 text-base/5">{{ form.allow_display.label }}</label>
+                </div>
+            </fieldset>
+            <fieldset class="bg-just-sandstone-100 py-6 px-5 rounded-2xl">
+                <h2 class="font-bold mb-1">{{ form.pledge.label }}</h2>
+                <p class="text-xs text-just-chalk-800 mb-2">Required</p>
+                <div class="flex flex-col gap-4">
+                    {% for radio in form.pledge %}
+                        {# The entire label now acts as the clickable button container #}
+                        <label class="card-radio group text-just-deep-burgundy-900"
+                               for="{{ radio.id_for_label }}">
+                            {{ radio.choice_label|safe }}
+                            {{ radio.tag }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </fieldset>
+            <fieldset class="bg-just-sandstone-100 py-6 px-5 rounded-2xl">
+                <div class="flex items-start space-x-3">
+                    {% include "components/forms/checkbox.html" with field=form.consent_given %}
+                    <div class="policy-text">
+                        <label for="{{ form.consent_given.id_for_label }}"
+                               class="text-just-deep-burgundy-900 font-bold text-base/6 block mb-1">
+                            {{ form.consent_given.label }}
+                        </label>
+                        {{ form.consent_given.help_text|safe }}
+                    </div>
+                </div>
+                {% if form.consent_given.errors %}
+                    <div class="mt-4 text-sm text-just-berry-300 bg-just-radical-red-50 p-4 rounded-md border border-just-berry-300">
+                        {% for error in form.consent_given.errors %}<p>{{ error }}</p>{% endfor %}
+                    </div>
+                {% endif %}
+            </fieldset>
+            <button class="px-6 py-3 bg-just-digital-blue-700 text-white rounded flex justify-center w-full text-base/5"
+                    type="submit">Submit</button>
+        </form>
+    </div>
+    {% vite_asset 'js/form.js' %}
+{% endblock content %}

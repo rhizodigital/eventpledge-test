@@ -1,0 +1,33 @@
+[project]
+name = "eventpledge"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12.4"
+dependencies = [
+    "channels[daphne]>=4.3.1",
+    "channels-redis>=4.3.0",
+    "django>=5.2.7",
+    "django-htmx>=1.26.0",
+    "django-vite>=3.1.0",
+    "pillow>=12.0.0",
+    "psycopg[binary]>=3.2.12",
+    "qrcode>=8.2",
+    "redis>=7.0.1",
+    "better-profanity==0.6.1",
+    "django-widget-tweaks>=1.5.0",
+]
+
+[dependency-groups]
+dev = ["djlint>=1.36.4", "ruff>=0.14.3"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+docstring-code-format = true
+
+[tool.djlint]
+profile = "django"

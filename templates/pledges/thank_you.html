@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}
+    Thank You for Your Pledge
+{% endblock title %}
+{% block content %}
+    <div class="max-w-xl mx-auto py-12 px-6 text-center flex flex-col items-center gap-9">
+        {% include "components/svgs/illustrations/thumbs-up-heart.html" %}
+        <div class="text-just-deep-burgundy-900">
+            <h2 class="font-heading text-5xl font-bold mb-5">Thank you!</h2>
+            <p class="font-medium">Your pledge helps shape a brighter tomorrow.</p>
+        </div>
+    </div>
+{% endblock content %}

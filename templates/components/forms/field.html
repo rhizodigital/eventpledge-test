@@ -1,0 +1,23 @@
+{% load widget_tweaks %}
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+    <div class="mb-3">
+        <label for="{{ field.id_for_label }}"
+               class="text-just-deep-burgundy-900 font-bold text-base mb-1 block">{{ field.label }}</label>
+        <p class="text-xs text-just-chalk-800 mb-2">
+            {% if field.field.required %}
+                Required
+            {% else %}
+                Optional
+            {% endif %}
+        </p>
+        {% if field.errors %}
+            {% render_field field class="block rounded-md px-3 py-3 text-sm/5 w-full bg-just-radical-red-50 outline-1 -outline-offset-1 outline-just-radical-red-300 focus:outline-2 focus:-outline-offset-2 focus:outline-just-radical-red-500 focus:ring-just-radical-red-200" placeholder=field.label %}
+            {% for error in field.errors %}<p class="mt-2 text-sm text-just-radical-red-500">{{ error }}</p>{% endfor %}
+        {% else %}
+            {% render_field field class="block rounded-md px-3 py-3 text-sm/5 w-full bg-just-chalk-50 outline-1 -outline-offset-1 outline-just-sandstone-200 focus:outline-2 focus:-outline-offset-2 focus:outline-just-digital-blue-500 focus:ring-just-digital-blue-200" placeholder=field.label %}
+        {% endif %}
+        {% if field.help_text %}<p class="mt-2 text-sm text-just-chalk-800">{{ field.help_text|safe }}</p>{% endif %}
+    </div>
+{% endif %}

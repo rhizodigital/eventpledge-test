@@ -1,0 +1,12 @@
+{% load widget_tweaks %}
+<div class="flex h-6 shrink-0 items-center">
+  <div class="group grid size-6 grid-cols-1">
+    {% render_field field class="col-start-1 row-start-1 appearance-none rounded-sm border border-just-sandstone-200 bg-just-chalk-50 checked:border-just-digital-blue-700 checked:bg-just-digital-blue-700 indeterminate:border-just-digital-blue-700 indeterminate:bg-just-digital-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-just-digital-blue-700 forced-colors:appearance-auto" %}
+    <svg viewBox="0 0 14 14"
+         fill="none"
+         class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25">
+      <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100" />
+      <path d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-indeterminate:opacity-100" />
+    </svg>
+  </div>
+</div>
