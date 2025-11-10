@@ -1,0 +1,60 @@
+{
+  "fonts/Inter-Bold.woff2": {
+    "file": "assets/Inter-Bold-BOs3KVhN.woff2",
+    "src": "fonts/Inter-Bold.woff2"
+  },
+  "fonts/Inter-Medium.woff2": {
+    "file": "assets/Inter-Medium-CDhBSFyE.woff2",
+    "src": "fonts/Inter-Medium.woff2"
+  },
+  "fonts/Inter-Regular.woff2": {
+    "file": "assets/Inter-Regular-COLGFB3M.woff2",
+    "src": "fonts/Inter-Regular.woff2"
+  },
+  "fonts/PPFormula-CondensedBlack.woff": {
+    "file": "assets/PPFormula-CondensedBlack-DCZ6_FNK.woff",
+    "src": "fonts/PPFormula-CondensedBlack.woff"
+  },
+  "fonts/PPFormula-CondensedBlack.woff2": {
+    "file": "assets/PPFormula-CondensedBlack-BbEsJlUy.woff2",
+    "src": "fonts/PPFormula-CondensedBlack.woff2"
+  },
+  "fonts/PPFormula-CondensedBold.woff": {
+    "file": "assets/PPFormula-CondensedBold-BYadGF2B.woff",
+    "src": "fonts/PPFormula-CondensedBold.woff"
+  },
+  "fonts/PPFormula-CondensedBold.woff2": {
+    "file": "assets/PPFormula-CondensedBold-C5cEW_0_.woff2",
+    "src": "fonts/PPFormula-CondensedBold.woff2"
+  },
+  "js/form.js": {
+    "file": "assets/form-YErs8j0a.js",
+    "name": "form",
+    "src": "js/form.js",
+    "isEntry": true
+  },
+  "js/main.js": {
+    "file": "assets/main-CUyr56JW.js",
+    "name": "main",
+    "src": "js/main.js",
+    "isEntry": true,
+    "css": [
+      "assets/main-qaNEl7m2.css"
+    ],
+    "assets": [
+      "assets/PPFormula-CondensedBold-C5cEW_0_.woff2",
+      "assets/PPFormula-CondensedBold-BYadGF2B.woff",
+      "assets/PPFormula-CondensedBlack-BbEsJlUy.woff2",
+      "assets/PPFormula-CondensedBlack-DCZ6_FNK.woff",
+      "assets/Inter-Regular-COLGFB3M.woff2",
+      "assets/Inter-Medium-CDhBSFyE.woff2",
+      "assets/Inter-Bold-BOs3KVhN.woff2"
+    ]
+  },
+  "js/visualisation_barchart.js": {
+    "file": "assets/visualisation_barchart-B9c1ZCrb.js",
+    "name": "visualisation_barchart",
+    "src": "js/visualisation_barchart.js",
+    "isEntry": true
+  }
+}

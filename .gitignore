@@ -63,11 +63,9 @@ media/
 # Vite built assets (from your static/assets/ file list)
 # This ensures your source files in static_src/ are committed,
 # but the generated, hashed files in static/assets/ are not.
-static/assets/
 
 # The django-vite manifest file
-manifest.json
-.vite/
+
 
 # =================================================================
 # OS & Editor

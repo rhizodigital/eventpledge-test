@@ -12,8 +12,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+# Get the value, or an empty string
+_allowed_hosts = os.environ.get('ALLOWED_HOSTS', '')
+# Only split it if it's not empty, otherwise create an empty list
+ALLOWED_HOSTS = _allowed_hosts.split(',') if _allowed_hosts else []
+
+# Do the same for CSRF_TRUSTED_ORIGINS
+_csrf_origins = os.environ.get('CSRF_TRUSTED_ORIGINS', '')
+CSRF_TRUSTED_ORIGINS = _csrf_origins.split(',') if _csrf_origins else []
 
 # Application definition
 
