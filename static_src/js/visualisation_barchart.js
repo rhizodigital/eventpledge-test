@@ -33,11 +33,11 @@ export async function requestWakeLock() {
     console.error(`${err.name}: ${err.message}`);
   }
 }
+const vizContainer = document.getElementById("viz-container");
 
 document.addEventListener("DOMContentLoaded", () => {
   requestWakeLock();
   const chartDom = document.getElementById("chart");
-  const vizContainer = document.getElementById("viz-container");
   if (!chartDom) return;
 
   const chart = echarts.init(chartDom);
@@ -248,4 +248,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     chart.resize();
   });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      toggleFullScreen(vizContainer);
+    }
+  });
+
+  function toggleFullScreen(container) {
+    if (!document.fullscreenElement) {
+      // If the document is not in full screen mode
+      // make the video full screen
+      container.requestFullscreen();
+    } else {
+      // Otherwise exit the full screen
+      document.exitFullscreen?.();
+    }
+  }
 });
