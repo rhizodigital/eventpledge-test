@@ -25,7 +25,7 @@
                 {% endif %}
             </div>
         </div>
-        <form hx-post="/submit/"
+        <form hx-post="{% url 'submit_pledge' %}"
               hx-target="#form-wrapper"
               hx-swap="outerHTML"
               class="flex flex-col gap-6">

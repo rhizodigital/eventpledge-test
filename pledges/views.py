@@ -1,4 +1,5 @@
 from django.db.models import Count
+from django.db import transaction
 from django.shortcuts import render, redirect
 from .models import Pledge, Submission
 from .forms import SubmissionForm
@@ -6,14 +7,6 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from core.site_settings_accessor import site_setting
 from core.utils import get_site_settings
-
-
-def index(request):
-    if request.session.get('has_submitted') and not site_setting('test_mode', False):
-        return render(request, 'pledges/thank_you.html')
-    form = SubmissionForm()
-    form.fields['pledge'].queryset = Pledge.objects.filter(is_active=True)
-    return render(request, 'pledges/form.html', {'form': form})
 
 
 def _broadcast_live():
@@ -63,7 +56,8 @@ def submit_pledge(request):
         form.save()
         request.session['has_submitted'] = True
         request.session.modified = True
-        _broadcast_live()
+
+        transaction.on_commit(_broadcast_live)
         return redirect('thank_you')
 
     return render(request, 'pledges/form.html', {'form': form})

@@ -21,13 +21,12 @@ from pledges import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('submit/', views.submit_pledge, name='submit_pledge'),
+    path('', views.submit_pledge, name='submit_pledge'),
     path('thanks/', views.thank_you, name='thank_you'),
     path(
-        "live/barchart/",
+        'live/barchart/',
         views.live_visualisation,
-        {"chart_type": "barchart"},
-        name="live_barchart",
+        {'chart_type': 'barchart'},
+        name='live_barchart',
     ),
 ]
