@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load django_vite %}
 {% load site_settings_tags %}
+{% block title %}
+  {{ site_settings.site_name|default:"Live Pledge Visualisation" }}
+{% endblock title %}
 {% block content %}
   {% with site_settings.visualisation_font_factor|divide:100 as font_factor %}
     <div id="viz-container"

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-    Thank You for Your Pledge
+    {{ site_settings.thank_you_page_title|default:"Thank You for Your Pledge!" }}
 {% endblock title %}
 {% block content %}
     <div class="max-w-xl mx-auto py-12 px-6 text-center flex flex-col items-center gap-9">

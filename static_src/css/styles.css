@@ -162,7 +162,11 @@
   @apply text-just-digital-blue-700 underline;
 }
 [data-pledge-feed] {
-  @apply flex flex-col justify-start space-y-4 divide-y divide-just-chalk-50 divide-dashed overflow-hidden;
+  @apply flex flex-col justify-start space-y-4 divide-y divide-just-chalk-50 divide-dashed overflow-hidden relative bg-just-deep-burgundy-900;
+}
+[data-pledge-feed]::after {
+  @apply absolute bottom-0 left-0 h-8 w-full bg-linear-to-t from-just-deep-burgundy-900 to-transparent pointer-events-none;
+  content: "";
 }
 .pledge-entry {
   @apply pb-4;

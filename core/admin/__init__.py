@@ -9,7 +9,7 @@ class SiteSettingsAdmin(SingletonModelAdmin):
         (
             None,
             {
-                'fields': ('site_name',),
+                'fields': ('site_name', 'test_mode'),
             },
         ),
         (

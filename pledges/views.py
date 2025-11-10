@@ -67,7 +67,8 @@ def submit_pledge(request):
 
 
 def thank_you(request):
-    return render(request, 'pledges/thank_you.html')
+    site_settings = get_site_settings()
+    return render(request, 'pledges/thank_you.html', {'site_settings': site_settings})
 
 
 def live_visualisation(request, chart_type='barchart'):

@@ -1,6 +1,41 @@
 import * as echarts from "echarts";
+let wakeLock = null;
+
+// Detect Safari (desktop or iOS)
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+export async function requestWakeLock() {
+  // Safari or unsupported browser → show warning
+  if (isSafari || !("wakeLock" in navigator)) {
+    console.warn(
+      "⚠️ Wake Lock API not supported in Safari. Please disable auto-lock manually."
+    );
+    return;
+  }
+
+  try {
+    // Must be called inside a user gesture (click / touch)
+    wakeLock = await navigator.wakeLock.request("screen");
+    console.log("✅ Screen Wake Lock is active.");
+
+    // Re-acquire when tab becomes visible again
+    document.addEventListener("visibilitychange", async () => {
+      if (wakeLock !== null && document.visibilityState === "visible") {
+        try {
+          wakeLock = await navigator.wakeLock.request("screen");
+          console.log("🔄 Wake Lock re-acquired.");
+        } catch (err) {
+          console.error("Re-acquire failed:", err);
+        }
+      }
+    });
+  } catch (err) {
+    console.error(`${err.name}: ${err.message}`);
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
+  requestWakeLock();
   const chartDom = document.getElementById("chart");
   const vizContainer = document.getElementById("viz-container");
   if (!chartDom) return;
@@ -152,16 +187,28 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.onmessage = (e) => {
     try {
       const data = JSON.parse(e.data);
-      console.log("Received data:", data);
+      // Handle heartbeat
+      if (data.type === "heartbeat") {
+        console.log("❤️ heartbeat");
+        return;
+      }
 
-      const countData = data.counts;
-      const pledgeFeed = data.pledge_feed;
+      console.log("Received data:", data);
+      const countData = data.counts || {};
+      const pledgeFeed = data.pledge_feed || [];
 
       updateChart(countData);
       updatePledgeFeed(pledgeFeed);
     } catch (error) {
       console.error("Error parsing WebSocket message:", error);
     }
+  };
+
+  socket.onclose = (e) => {
+    console.warn("WebSocket closed. Reconnecting in 5s...");
+    setTimeout(() => {
+      window.location.reload(); // simple reconnect
+    }, 5000);
   };
 
   // Dynamically resize font sizes and chart on window resize
