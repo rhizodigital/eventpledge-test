@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from .models import Pledge, Submission
 from .forms import SubmissionForm
@@ -17,10 +18,12 @@ def index(request):
 
 def _broadcast_live():
     layer = get_channel_layer()
-    count_data = {
-        p.short_text: Submission.objects.filter(pledge=p).count()
-        for p in Pledge.objects.filter(is_active=True)
-    }
+    pledges_with_counts = Pledge.objects.filter(is_active=True).annotate(
+        sub_count=Count('submission')
+    )
+
+    # Format the data into the dictionary {pledge_name: count}
+    count_data = {p.short_text: p.sub_count for p in pledges_with_counts}
 
     latest_pledges_qs = (
         Submission.objects.filter(allow_display=True, personal_pledge_censored__isnull=False)
