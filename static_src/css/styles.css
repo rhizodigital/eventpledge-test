@@ -1,0 +1,211 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@source "../../templates";
+
+@font-face {
+  font-family: "PPFormula";
+  src: url("../fonts/PPFormula-CondensedBold.woff2") format("woff2"),
+    url("../fonts/PPFormula-CondensedBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PPFormula";
+  src: url("../fonts/PPFormula-CondensedBlack.woff2") format("woff2"),
+    url("../fonts/PPFormula-CondensedBlack.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/Inter-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/Inter-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/Inter-Bold.woff2") format("woff2");
+}
+@font-feature-values Inter {
+  @character-variant {
+    cv01: 1;
+    cv02: 2;
+    cv03: 3;
+    cv04: 4;
+    cv05: 5;
+    cv06: 6;
+    cv07: 7;
+    cv08: 8;
+    cv09: 9;
+    cv10: 10;
+    cv11: 11;
+    cv12: 12;
+    cv13: 13;
+    alt-1: 1; /* Alternate one */
+    alt-3: 9; /* Flat-top three */
+    open-4: 2; /* Open four */
+    open-6: 3; /* Open six */
+    open-9: 4; /* Open nine */
+    lc-l-with-tail: 5; /* Lower-case L with tail */
+    simplified-u: 6; /* Simplified u */
+    alt-double-s: 7; /* Alternate German double s */
+    uc-i-with-serif: 8; /* Upper-case i with serif */
+    uc-g-with-spur: 10; /* Capital G with spur */
+    single-story-a: 11; /* Single-story a */
+    compact-lc-f: 12; /* Compact f */
+    compact-lc-t: 13; /* Compact t */
+  }
+  @styleset {
+    ss01: 1;
+    ss02: 2;
+    ss03: 3;
+    ss04: 4;
+    ss05: 5;
+    ss06: 6;
+    ss07: 7;
+    ss08: 8;
+    open-digits: 1; /* Open digits */
+    disambiguation: 2; /* Disambiguation (with zero) */
+    disambiguation-except-zero: 4; /* Disambiguation (no zero) */
+    round-quotes-and-commas: 3; /* Round quotes &amp; commas */
+    square-punctuation: 7; /* Square punctuation */
+    square-quotes: 8; /* Square quotes */
+    circled-characters: 5; /* Circled characters */
+    squared-characters: 6; /* Squared characters */
+  }
+}
+@theme {
+  /* === Just Brand Colours === */
+
+  --color-just-radical-red-50: #fff1f3;
+  --color-just-radical-red-100: #ffe4e8;
+  --color-just-radical-red-200: #ffb4be;
+  --color-just-radical-red-300: #ff8e9d;
+  --color-just-radical-red-400: #ff687c;
+  --color-just-radical-red-500: #ff425b;
+
+  --color-just-berry-50: #bf1a54;
+  --color-just-berry-100: #9a1544;
+  --color-just-berry-200: #761034;
+  --color-just-berry-300: #510b23;
+
+  --color-just-deep-burgundy-700: #390819;
+  --color-just-deep-burgundy-800: #490a20;
+  --color-just-deep-burgundy-900: #210c0c;
+
+  --color-just-sandstone-50: #ffffed;
+  --color-just-sandstone-100: #faf4e2;
+  --color-just-sandstone-200: #e0dac8;
+  --color-just-sandstone-300: #c7c1af;
+  --color-just-sandstone-400: #ada795;
+  --color-just-sandstone-500: #7b7563;
+
+  --color-just-chalk-50: #fffefe;
+  --color-just-chalk-100: #fcfcfc;
+  --color-just-chalk-200: #f7f7f7;
+  --color-just-chalk-300: #f5f5f5;
+  --color-just-chalk-400: #e5e5e5;
+  --color-just-chalk-500: #d6d6d6;
+  --color-just-chalk-600: #a3a3a3;
+  --color-just-chalk-700: #737373;
+  --color-just-chalk-800: #525252;
+  --color-just-chalk-900: #424242;
+  --color-just-chalk-950: #141414;
+
+  --color-just-radical-green-50: #f5fff9;
+  --color-just-radical-green-100: #dcfeeb;
+  --color-just-radical-green-200: #c5fddd;
+  --color-just-radical-green-300: #a9fccd;
+  --color-just-radical-green-400: #8cfabc;
+  --color-just-radical-green-500: #6ff9ab;
+  --color-just-radical-green-600: #52f89a;
+  --color-just-radical-green-700: #42c67b;
+  --color-just-radical-green-800: #31955c;
+  --color-just-radical-green-900: #21633e;
+  --color-just-radical-green-950: #10321f;
+
+  --color-just-digital-blue-50: #eff4ff;
+  --color-just-digital-blue-100: #d1e0ff;
+  --color-just-digital-blue-200: #b2ccff;
+  --color-just-digital-blue-300: #84adff;
+  --color-just-digital-blue-400: #528bff;
+  --color-just-digital-blue-500: #2970ff;
+  --color-just-digital-blue-600: #155eef;
+  --color-just-digital-blue-700: #004eeb;
+  --color-just-digital-blue-800: #0040c1;
+  --color-just-digital-blue-900: #00359e;
+  --color-just-digital-blue-950: #002266;
+
+  --font-heading: "PPFormula", sans-serif;
+  --font-sans: "Inter", sans-serif;
+}
+.card-radio {
+  @apply shadow-md relative block rounded-lg border border-just-chalk-50 bg-just-chalk-50 px-6 py-4 has-checked:outline-2 has-checked:-outline-offset-2 has-checked:bg-just-digital-blue-50 has-checked:outline-just-digital-blue-500 has-focus-visible:outline-3 has-focus-visible:-outline-offset-1;
+}
+.card-radio input[type="radio"] {
+  @apply absolute inset-0 appearance-none focus:outline-none;
+}
+.policy-text a {
+  @apply text-just-digital-blue-700 underline;
+}
+[data-pledge-feed] {
+  @apply flex flex-col justify-start space-y-4 divide-y divide-just-chalk-50 divide-dashed overflow-hidden relative bg-just-deep-burgundy-900;
+}
+[data-pledge-feed]::after {
+  @apply absolute bottom-0 left-0 h-8 w-full bg-linear-to-t from-just-deep-burgundy-900 to-transparent pointer-events-none;
+  content: "";
+}
+.pledge-entry {
+  @apply pb-4;
+}
+.pledge-entry .pledge-text {
+  @apply text-just-chalk-50 font-medium;
+}
+.pledge-entry .pledge-name {
+  @apply text-just-radical-green-500 font-medium not-italic capitalize whitespace-nowrap;
+}
+:root {
+  /* Define the fallback value for the factor, in case the Django template fails to inject it. */
+  --viz-font-factor: 1;
+}
+
+.fluid-display {
+  font-size: clamp(
+    calc(3.375rem * var(--viz-font-factor)),
+    calc(3.5146vw * var(--viz-font-factor)),
+    calc(5.06rem * var(--viz-font-factor))
+  );
+  line-height: 1.1;
+}
+
+.fluid-heading {
+  font-size: clamp(
+    calc(2rem * var(--viz-font-factor)),
+    calc(2.935vw * var(--viz-font-factor)),
+    calc(3rem * var(--viz-font-factor))
+  );
+  line-height: 1.2;
+}
+
+.fluid-body,
+.pledge-entry .pledge-text {
+  font-size: clamp(
+    calc(1.12rem * var(--viz-font-factor)),
+    calc(1.17085vw * var(--viz-font-factor)),
+    calc(1.69rem * var(--viz-font-factor))
+  );
+  line-height: 1.4;
+}
