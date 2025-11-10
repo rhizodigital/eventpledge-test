@@ -26,12 +26,6 @@ class SubmissionForm(forms.ModelForm):
             'pledge': 'Which pledge resonates with you?',
             'allow_display': 'I’m happy for my pledge to be shown on the event screen',
         }
-        help_texts = {
-            'consent_given': mark_safe(
-                'I agree for my information and pledge to be used for this event and for future analysis, research or reporting, '
-                'in line with data protection law. <a href="/privacy-policy/" target="_blank">Read our Privacy Policy</a>.'
-            ),
-        }
         widgets = {
             'first_name': forms.TextInput(attrs={'autofocus': 'autofocus'}),
             'last_name': forms.TextInput(),

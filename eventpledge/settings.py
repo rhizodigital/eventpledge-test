@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'daphne',
+    'core',
     'pledges',
+    'django_prose_editor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,7 +83,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [("127.0.0.1", 6379)],
+            'hosts': [('127.0.0.1', 6379)],
         },
     },
 }
@@ -132,11 +134,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-STATIC_URL = "/static/"
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # 👈 where Vite outputs its build
+    BASE_DIR / 'static',  # 👈 where Vite outputs its build
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"  # for collectstatic in prod
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # for collectstatic in prod
 
 TEMPLATES[0]['DIRS'] = [BASE_DIR / 'templates']
 # Default primary key field type
@@ -146,16 +148,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 DJANGO_VITE = {
-    "default": {
+    'default': {
         # 👇 Use Vite's live dev server when DEBUG=True
-        "dev_mode": DEBUG,
+        'dev_mode': DEBUG,
         # 👇 Dev server config (should match your vite.config.js)
-        "dev_server_protocol": "http",
-        "dev_server_host": "localhost",
-        "dev_server_port": 5173,
+        'dev_server_protocol': 'http',
+        'dev_server_host': 'localhost',
+        'dev_server_port': 5173,
         # 👇 Prevent adding /static/ prefix — important!
-        "static_url_prefix": "",
+        'static_url_prefix': '',
         # 👇 Production build locations
-        "manifest_path": BASE_DIR / "static/.vite/manifest.json",
+        'manifest_path': BASE_DIR / 'static/.vite/manifest.json',
     }
 }

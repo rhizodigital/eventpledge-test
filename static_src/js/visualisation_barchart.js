@@ -2,6 +2,7 @@ import * as echarts from "echarts";
 
 document.addEventListener("DOMContentLoaded", () => {
   const chartDom = document.getElementById("chart");
+  const vizContainer = document.getElementById("viz-container");
   if (!chartDom) return;
 
   const chart = echarts.init(chartDom);
@@ -9,11 +10,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const normalColor = "#ff425b";
   const highlightColor = "#210c0c";
 
+  function getFontFactor() {
+    // The variable cascades globally, so we read it from the root element (<html>).
+    const factor = getComputedStyle(vizContainer)
+      .getPropertyValue("--viz-font-factor") // Must match the name in the template
+      .trim();
+
+    // If factor is empty or invalid, default to 1.0 (100%)
+    return parseFloat(factor) || 1.0;
+  }
   // Helper function to calculate font size based on viewport width
   function getFontSize() {
     const base = Math.min(window.innerWidth, window.innerHeight);
     // 1.2% of the smaller dimension, min 16px, max 32px
-    return Math.max(16, Math.min(32, base * 0.016));
+    let size = Math.max(16, Math.min(32, base * 0.016));
+    size = size * getFontFactor();
+    return size;
   }
 
   const option = {
@@ -102,12 +114,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  updateChart(window.initialCounts || {});
+  function updatePledgeFeed(feedData) {
+    const feedContainer = document.getElementById("pledge-feed");
+    if (!feedContainer) return;
 
-  const ws = new WebSocket(`ws://${window.location.host}/ws/live/`);
-  ws.onmessage = (e) => {
-    const newData = JSON.parse(e.data);
-    updateChart(newData);
+    let newHtml = "";
+
+    feedData.forEach((pledge) => {
+      const name = pledge.last_name
+        ? `${pledge.first_name} ${pledge.last_name}`
+        : pledge.first_name;
+
+      const pledgeHtml = `
+        <article class="pledge-entry">
+          <blockquote class="pledge-text">${pledge.personal_pledge_censored} <span class="pledge-name">- ${name}</span></blockquote>
+          
+        </article>
+      `;
+
+      feedContainer.insertAdjacentHTML("beforeend", pledgeHtml);
+      newHtml += pledgeHtml;
+    });
+    feedContainer.innerHTML = newHtml;
+  }
+
+  updateChart(window.initialCounts || {});
+  updatePledgeFeed(window.initialPledgeFeed || []);
+
+  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+  const socketPath = `${protocol}//${window.location.host}/ws/live/`;
+  const socket = new WebSocket(socketPath);
+
+  socket.onopen = () => {
+    console.log("WebSocket connection established.");
+  };
+
+  socket.onmessage = (e) => {
+    try {
+      const data = JSON.parse(e.data);
+      console.log("Received data:", data);
+
+      const countData = data.counts;
+      const pledgeFeed = data.pledge_feed;
+
+      updateChart(countData);
+      updatePledgeFeed(pledgeFeed);
+    } catch (error) {
+      console.error("Error parsing WebSocket message:", error);
+    }
   };
 
   // Dynamically resize font sizes and chart on window resize

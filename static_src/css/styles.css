@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @source "../../templates";
 
 @font-face {
@@ -159,4 +160,48 @@
 }
 .policy-text a {
   @apply text-just-digital-blue-700 underline;
+}
+[data-pledge-feed] {
+  @apply flex flex-col justify-start space-y-4 divide-y divide-just-chalk-50 divide-dashed overflow-hidden;
+}
+.pledge-entry {
+  @apply pb-4;
+}
+.pledge-entry .pledge-text {
+  @apply text-just-chalk-50 font-medium;
+}
+.pledge-entry .pledge-name {
+  @apply text-just-radical-green-500 font-medium not-italic capitalize whitespace-nowrap;
+}
+:root {
+  /* Define the fallback value for the factor, in case the Django template fails to inject it. */
+  --viz-font-factor: 1;
+}
+
+.fluid-display {
+  font-size: clamp(
+    calc(3.375rem * var(--viz-font-factor)),
+    calc(3.5146vw * var(--viz-font-factor)),
+    calc(5.06rem * var(--viz-font-factor))
+  );
+  line-height: 1.1;
+}
+
+.fluid-heading {
+  font-size: clamp(
+    calc(2rem * var(--viz-font-factor)),
+    calc(2.935vw * var(--viz-font-factor)),
+    calc(3rem * var(--viz-font-factor))
+  );
+  line-height: 1.2;
+}
+
+.fluid-body,
+.pledge-entry .pledge-text {
+  font-size: clamp(
+    calc(1.12rem * var(--viz-font-factor)),
+    calc(1.17085vw * var(--viz-font-factor)),
+    calc(1.69rem * var(--viz-font-factor))
+  );
+  line-height: 1.4;
 }
