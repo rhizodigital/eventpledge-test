@@ -8,3 +8,81 @@ wheels/
 
 # Virtual environments
 .venv
+# =================================================================
+# Production Secrets & Environment Files
+# =================================================================
+# Ignore all environment variable files
+*.env
+.env
+
+# =================================================================
+# Python & Django
+# =================================================================
+# Python virtual environments
+.venv/
+venv/
+
+# Python bytecode and cache
+*.pyc
+__pycache__/
+.ruff_cache/
+.pytest_cache/
+
+# Django migration files (IGNORE THIS SECTION IF YOU WANT TO COMMIT MIGRATIONS)
+# Most projects *do* commit migrations. Only uncomment this if you have a specific reason not to.
+# pledges/migrations/
+
+# =================================================================
+# Database
+# =================================================================
+# Ignore the development SQLite database
+db.sqlite3
+db.sqlite3-journal
+
+# =================================================================
+# Node / Vite Frontend (from package.json)
+# =================================================================
+# Dependencies
+node_modules/
+
+# Vite build output (default folder)
+static_src/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# =================================================================
+# Django Static, Media & Vite Assets
+# =================================================================
+# Django's production static file collection directory
+staticfiles/
+
+# User-uploaded media files
+media/
+
+# Vite built assets (from your static/assets/ file list)
+# This ensures your source files in static_src/ are committed,
+# but the generated, hashed files in static/assets/ are not.
+static/assets/
+
+# The django-vite manifest file
+manifest.json
+.vite/
+
+# =================================================================
+# OS & Editor
+# =================================================================
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
