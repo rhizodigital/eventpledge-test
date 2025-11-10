@@ -153,24 +153,52 @@ document.addEventListener("DOMContentLoaded", () => {
     const feedContainer = document.getElementById("pledge-feed");
     if (!feedContainer) return;
 
-    let newHtml = "";
+    // 1. Clear the container.
+    // This is more modern than .innerHTML = ""
+    feedContainer.replaceChildren();
 
+    // 2. Loop through each pledge in the new data
     feedData.forEach((pledge) => {
+      // 3. Get the name string (this logic is fine)
       const name = pledge.last_name
         ? `${pledge.first_name} ${pledge.last_name}`
         : pledge.first_name;
 
-      const pledgeHtml = `
-        <article class="pledge-entry">
-          <blockquote class="pledge-text">${pledge.personal_pledge_censored} <span class="pledge-name">- ${name}</span></blockquote>
-          
-        </article>
-      `;
+      // 4. Create the elements
+      const article = document.createElement("article");
+      article.className = "pledge-entry";
 
-      feedContainer.insertAdjacentHTML("beforeend", pledgeHtml);
-      newHtml += pledgeHtml;
+      const blockquote = document.createElement("blockquote");
+      blockquote.className = "pledge-text";
+
+      const nameSpan = document.createElement("span");
+      nameSpan.className = "pledge-name";
+
+      // --- THIS IS THE SAFE PART ---
+
+      // 5. Set the content using .textContent.
+      // This inserts the name as plain text.
+      nameSpan.textContent = ` - ${name}`;
+
+      // 6. Create a text node for the pledge.
+      // This inserts the pledge as plain text, guaranteeing it
+      // cannot be interpreted as HTML.
+      const pledgeText = document.createTextNode(
+        pledge.personal_pledge_censored + " "
+      );
+
+      // 7. Build the blockquote's content
+      blockquote.appendChild(pledgeText);
+      blockquote.appendChild(nameSpan);
+
+      // --- END OF SAFE PART ---
+
+      // 8. Build the final article
+      article.appendChild(blockquote);
+
+      // 9. Add the fully built, safe element to the DOM
+      feedContainer.appendChild(article);
     });
-    feedContainer.innerHTML = newHtml;
   }
 
   updateChart(window.initialCounts || {});

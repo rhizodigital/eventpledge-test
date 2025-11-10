@@ -1,10 +1,5 @@
 from django import forms
-from django.utils.safestring import mark_safe
-from django.core.exceptions import ValidationError
-import re
 from .models import Submission
-
-TAG_RE = re.compile(r'<[^>]+>')
 
 
 class SubmissionForm(forms.ModelForm):
@@ -24,44 +19,14 @@ class SubmissionForm(forms.ModelForm):
             'last_name': 'Your last name',
             'consent_given': 'Your permission',
             'pledge': 'Which pledge resonates with you?',
-            'allow_display': 'I’m happy for my pledge to be shown on the event screen',
+            'allow_display': 'I’m happy for my name and pledge to be shown on the event screen.',
         }
         widgets = {
             'first_name': forms.TextInput(attrs={'autofocus': 'autofocus'}),
             'last_name': forms.TextInput(),
             'pledge': forms.RadioSelect(),
-            'personal_pledge': forms.Textarea(attrs={'rows': 4}),
+            'personal_pledge': forms.Textarea(attrs={'rows': 3}),
         }
-
-    def clean_first_name(self):
-        first_name = self.cleaned_data.get('first_name', '')
-        if TAG_RE.search(first_name):
-            raise ValidationError(
-                'Please don’t include HTML or special characters in your first name.'
-            )
-        if len(first_name.strip()) > 70:
-            raise ValidationError('Your first name can’t be longer than 70 characters.')
-        return first_name
-
-    def clean_last_name(self):
-        last_name = self.cleaned_data.get('last_name', '')
-        if TAG_RE.search(last_name):
-            raise ValidationError(
-                'Please don’t include HTML or special characters in your last name.'
-            )
-        if len(last_name.strip()) > 70:
-            raise ValidationError('Your last name can’t be longer than 70 characters.')
-        return last_name
-
-    def clean_personal_pledge(self):
-        personal_pledge = self.cleaned_data.get('personal_pledge', '')
-        if TAG_RE.search(personal_pledge):
-            raise ValidationError(
-                'Please don’t include HTML or special characters in your personal pledge.'
-            )
-        if len(personal_pledge.strip()) > 360:
-            raise ValidationError('Your personal pledge can’t be longer than 360 characters.')
-        return personal_pledge
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

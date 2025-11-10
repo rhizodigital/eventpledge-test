@@ -16,7 +16,7 @@ class Submission(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True)
     consent_given = models.BooleanField(default=False)
-    personal_pledge = models.TextField(blank=True)
+    personal_pledge = models.TextField(blank=True, max_length=200)
     personal_pledge_censored = models.TextField(blank=True, editable=False)
     allow_display = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
